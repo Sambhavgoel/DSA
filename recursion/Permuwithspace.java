@@ -18,5 +18,6 @@ public class Permuwithspace{
         String op = "";
         op=op+ip.charAt(0);
         solve(op,ip.substring(1));
+        
     }
 }

@@ -6,11 +6,10 @@ class fact{
         {
             return 1;
         }
-        
+
         int ans = n*calculatefact(n-1);
-        
         return ans;
-        
+
     }
     public static void main(String args[])
     {

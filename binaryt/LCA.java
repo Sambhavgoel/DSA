@@ -9,6 +9,7 @@ class Node{
         right=null;
     }
 }
+
 class LCA{
     public static Node solve(Node root, int p , int q)
     {
@@ -21,6 +22,8 @@ class LCA{
             return root;
         }
         Node left = solve(root.left,p,q);
+
+        
         Node right = solve(root.right,p,q);
 
         if(left!=null && right!=null){

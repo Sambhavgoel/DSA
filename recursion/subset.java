@@ -13,13 +13,13 @@ public class subset{
         // solve(ip.substring(1),op2);
         solve(ip.substring(1),op+ip.charAt(0));
         solve(ip.substring(1),op);
-        
+
     }
     public static void main(String args[])
     {
         Scanner sc = new Scanner(System.in);
         String inp = sc.nextLine();
-        
+
         String op = "";
         solve(inp,op);
 

@@ -34,7 +34,6 @@ class morrisPre{
                 if(pre.right==null)
                 {
                     pre.right=temp;
-                   
                     temp=temp.left;
                 }
                 else{

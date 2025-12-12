@@ -1,46 +1,40 @@
-class Node{
-    int key;
-    Node left;
-    Node right;
-    Node(int k)
-    {
-        key = k;
+class TreeNode {
+    TreeNode left;
+    TreeNode right;
+    int val;
+
+    TreeNode(int val) {
+        this.val = val;
     }
 }
-class search{
-    public static void main(String args[])
-    {
-        Node root = new Node(65);
-        root.left = new Node(54);
-        root.right = new Node(68);
-        root.left.left = new Node(52);
-        root.right.right = new Node(102);
-        root.left.right = new Node(60);
 
-        boolean ans = number(root,60);
-        System.out.println(ans);
+public class search {
+    public static TreeNode searchNode(TreeNode root, int key) {
+        while (root != null && root.val != key) {
+            root = root.val > key ? root.left : root.right;
+        }
+        return root;
     }
-    public static boolean number(Node root , int k)
-    {
-        
-        
-        
-        if(root==null)
-        {
-            return false;
+
+    public static void main(String args[]) {
+        TreeNode root = new TreeNode(5);
+        root.left = new TreeNode(3);
+        root.right = new TreeNode(8);
+        root.left.left = new TreeNode(2);
+        root.left.right = new TreeNode(4);
+        root.right.left = new TreeNode(6);
+        root.right.right = new TreeNode(10);
+
+        int key = 4;
+
+        TreeNode ans = searchNode(root, key);
+
+        if (ans != null) {
+            System.out.println("Key is found");
+        } else {
+            System.out.println("Key is not found");
+
         }
-        else if(root.key == k)
-        {
-            return true;
-        }
-        else if(root.key<k)
-        {
-            return number(root.right,k);
-        }
-        else
-        {
-            return number(root.left,k);
-        }
-        
+
     }
 }

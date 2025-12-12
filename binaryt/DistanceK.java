@@ -55,7 +55,7 @@ class DistanceK{
             for(int i=0;i<size;i++)
             {
                 Node temp = queue.poll();
-                
+
                 if(temp.left!=null && !visited.contains(temp.left.data))
                 {
                     queue.offer(temp.left);

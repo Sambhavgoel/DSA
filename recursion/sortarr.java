@@ -11,7 +11,6 @@ public class sortarr{
         arr.remove(arr.size()-1);
         insert(arr,temp);
         arr.add(last);
-        
 
     }
 
@@ -21,11 +20,11 @@ public class sortarr{
         {
             return;
         }
+
         int temp = arr.get(arr.size()-1);
         arr.remove(arr.size()-1);
         sort(arr,n-1);
         insert(arr,temp);
-       
 
     }
 
