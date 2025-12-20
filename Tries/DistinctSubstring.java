@@ -1,100 +1,89 @@
 import java.util.*;
 
-// Node class representing
-// each node in the trie
 class Node {
-    Node[] links = new Node[26];
-    // Array of pointers to child nodes,
-    // each corresponding to a letter
-    // of the alphabet
-    boolean flag = false;
-    // Flag indicating if the current
-    // node represents the end of a substring
+    Node[] links;
 
-    // Method to check if a specific character key
-    // exists in the children of the current node
-    public boolean containsKey(char ch) {
-        // Check if the current node has a child node
-        // corresponding to character 'ch'
-        return links[ch - 'a'] != null;
+    Node()
+    {
+        links = new Node[26];
     }
 
-    // Method to get the child node corresponding
-    // to a specific character key
-    public Node get(char ch) {
-        // Get the child node
-        // corresponding to character 'ch'
-        return links[ch - 'a'];
+    public boolean containsKey(char ch)
+    {
+        return links[ch-'a']!=null;
     }
 
-    // Method to insert a new child
-    // node with a specific character key
-    public void put(char ch, Node node) {
-        // Insert a new child
-        // node for character 'ch'
-        links[ch - 'a'] = node;
+    public void add(char ch,Node node)
+    {
+        links[ch-'a']=node;
+    }
+    public Node get(char ch)
+    {
+        return links[ch-'a'];
     }
 
-    // Method to mark the current
-    // node as the end of a substring
-    public void setEnd() {
-        // Mark the current node
-        // as the end of a substring
-        flag = true;
+}
+class Trie{
+    private Node root;
+    Trie()
+    {
+        root = new Node();
     }
 
-    // Method to check if the current
-    // node marks the end of a substring
-    public boolean isEnd() {
-        // Check if the current node
-        // marks the end of a substring
-        return flag;
+    public void insert(String str)
+    {
+        Node node  = root;
+        for(char ch : str.toCharArray())
+        {
+            if(!node.containsKey(ch))
+            {
+                node.add(ch,new Node());
+            }
+            node= node.get(ch);
+        }
     }
+
+    public boolean exists(String str)
+    {
+        Node node = root;
+        for(char ch : str.toCharArray())
+        {
+            if(!node.containsKey(ch))
+            {
+                return false;
+            }
+            node =node.get(ch);
+        }
+
+        return true;
+    }
+
 }
 
-// Solution class to count distinct substrings using Trie
-class Solution {
-    // Function to count the number of
-    // distinct substrings in the given string
-    public int countDistinctSubstrings(String s) {
-        // Function to count distinct
-        // substrings in the input string 's'
-        Node root = new Node();
-        // Creating the root
-        // node of the trie
-        int cnt = 0;
-        // Counter to keep track
-        // of distinct substrings
-        int n = s.length();
-        // Length of the input string
 
-        // Nested loops to iterate through all
-        // possible substrings of the input string
-        for (int i = 0; i < n; i++) {
-            // Iterate through each
-            // starting position of the substring
+class Solution {
+
+    public int countDistinctSubstrings(String s) {
+        int ans = 0;
+        int n = s.length();
+
+        Node root = new Node();
+
+        for(int i=0;i<n;i++)
+        {
             Node node = root;
-            // Start from the root for each substring
-            for (int j = i; j < n; j++) {
-                // Iterate through each character of the substring
-                // If the current character is not a child
-                // of the current node, insert it as a new child node
-                if (!node.containsKey(s.charAt(j))) {
-                    node.put(s.charAt(j), new Node());
-                    // Insert a new child
-                    // node for character s[j]
-                    cnt++;
-                    // Increment the counter
-                    // since a new substring is found
+            for(int j=i;j<n;j++)
+            {
+                if(!node.containsKey(s.charAt(j)))
+                {
+                    ans+=1;
+                    node.add(s.charAt(j),new Node());
                 }
                 node = node.get(s.charAt(j));
-                // Move to the child node
-                // corresponding to character s[j]
             }
         }
-        // Return the total count of distinct substrings
-        // (+1 to account for the input string itself)
-        return cnt + 1;
+        return ans+1;
+
     }
 }
 
