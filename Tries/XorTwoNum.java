@@ -1,79 +1,81 @@
-// Trie node definition
-class Node {
-    Node[] links = new Node[2];
-
-    // Check if bit path exists
-    public boolean containsKey(int bit) {
-        return links[bit] != null;
+class Trie{
+    private Trie[]links;
+    Trie()
+    {
+        links = new Trie[2];
     }
-
-    // Get child node for the bit
-    public Node get(int bit) {
+    public boolean containsKey(int bit)
+    {
+        return links[bit]!=null;
+    }
+    public Trie get(int bit)
+    {
         return links[bit];
     }
-
-    // Set child node for the bit
-    public void put(int bit, Node node) {
+    public void add(int bit, Trie node)
+    {
         links[bit] = node;
+        return;
     }
+
+
 }
+class Node{
+    private Trie root;
 
-class Solution {
-    Node root = new Node();
+    Node()
+    {
+        root = new Trie();
+    }
 
-    // Insert number into the Trie
-    public void insert(int num) {
-        Node node = root;
-        for (int i = 31; i >= 0; i--) {
-            // Get the i-th bit
-            int bit = (num >> i) & 1;
-
-            // Create path if not present
-            if (!node.containsKey(bit)) {
-                node.put(bit, new Node());
+    public void insert(int num)
+    {
+        Trie node = root;
+        for(int i=31;i>=0;i--)
+        {
+            int bit = (num>>i)&1;
+            if(!node.containsKey(bit))
+            {
+                node.add(bit,new Trie());
             }
-
-            // Move to next node
             node = node.get(bit);
         }
     }
-
-    // Get max XOR for a given number
-    public int getMaxXOR(int num) {
-        Node node = root;
-        int maxXor = 0;
-
-        for (int i = 31; i >= 0; i--) {
-            // Get the i-th bit
-            int bit = (num >> i) & 1;
-
-            // Try opposite bit for max XOR
-            if (node.containsKey(1 - bit)) {
-                maxXor |= (1 << i);
-                node = node.get(1 - bit);
-            } else {
+    public int getMax(int num)
+    {
+        Trie node = root;
+        int ans = 0;
+        for(int i=31;i>=0;i--)
+        {
+            int bit = (num>>i)&1;
+            if(node.containsKey(1-bit))
+            {
+                ans = ans|(1<<i);
+                node = node.get(1-bit);
+            }
+            else{
                 node = node.get(bit);
             }
         }
-
-        return maxXor;
-    }
-
-    // Find max XOR among all pairs
-    public int findMaximumXOR(int[] nums) {
-        for (int num : nums) {
-            insert(num);
-        }
-
-        int maxResult = 0;
-        for (int num : nums) {
-            maxResult = Math.max(maxResult, getMaxXOR(num));
-        }
-
-        return maxResult;
+        return ans;
     }
 }
-
+class Solution{
+    public int findMaximumXOR(int[]nums)
+    {
+        Node node = new Node();
+        for(int ele : nums)
+        {
+            node.insert(ele);
+        }
+        int max =0 ;
+        for(int ele : nums)
+        {
+            max = Math.max(max,node.getMax(ele));
+        }
+        return max;
+    }
+}
 // Driver code
 public class XorTwoNum {
     public static void main(String[] args) {
