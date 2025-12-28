@@ -54,7 +54,7 @@ public class lc2402 {
 
     public static void main(String[] args) {
 
-        // Number of rooms
+        // Number of roomslc1352
         int n = 2;
 
         // Meetings: {start, end}
